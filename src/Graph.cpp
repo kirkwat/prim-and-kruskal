@@ -4,14 +4,15 @@
 
 #include "Graph.h"
 
-Graph::Graph(){
+Graph::Graph(){}
 
-}
 Graph::Graph(int e){
     for(int x=0;x<=e;x++){
         graph.push_back(vector<Edge>());
     }
 }
-void Graph::AddEdge(int from, int to, int weight){
 
+void Graph::AddEdge(int from, int to, int weight){
+    graph[from].push_back(Edge(from, to, weight));
+    graph[from].push_back(Edge(to, from, weight));
 }

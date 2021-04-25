@@ -19,3 +19,11 @@ int main(int argc, char** argv){
 //reading file
     //getline+ss vs >>
     //counting lines to get array size before reading
+    //adj matrix for prims on dense
+
+//to add
+    //absolute path
+    //error handling
+
+//constraints
+    //lowest vertex must be 0

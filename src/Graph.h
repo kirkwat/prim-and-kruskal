@@ -6,6 +6,7 @@
 #define S21_PA04_KWATSON_GRAPH_H
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
         from=f;
         cost=c;
     }
+    //TODO add compare edges
 };
 
 class Graph {

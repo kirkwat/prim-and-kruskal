@@ -16,9 +16,11 @@ using namespace std;
 class MST_Algos {
 private:
     Graph graph;
+    int nodes;
 public:
     MST_Algos();
     void readGraph(const char*);
+    void prim();
 };
 
 

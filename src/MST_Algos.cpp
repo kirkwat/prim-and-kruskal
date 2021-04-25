@@ -3,7 +3,7 @@
 //
 
 #include "MST_Algos.h"
-
+//default constructor
 MST_Algos::MST_Algos(){}
 //read file to fill graph
 void MST_Algos::readGraph(const char* filePath){
@@ -29,21 +29,76 @@ void MST_Algos::readGraph(const char* filePath){
     //get values
     int num;
     values[0]=num;
-    //max and min vertices used to find graph dimension
+    //max vertex used to find graph dimension
     int max=num;
-    //read values and find max and min vertex
-    for(int x=1;x<30;x++){
+    //read values and find max vertex
+    for(int x=1;x<(3*numLines);x++){
         file>>num;
         values[x]=num;
         //skip edge values
         if(((x+1)%3)!=0){
-            //check for min or max
+            //check for max
             if(num>max){
                 max=num;
             }
         }
     }
-    //create graph
+    //close file
+    file.close();
+    //initialize graph with range
     graph=Graph(max);
     //fill graph
+    for(int x=0;x<numLines;x++){
+        int index=3*numLines;
+        graph.AddEdge(index,index+1,index+2);
+    }
+    //TODO change maybe for min constraint
+    nodes=max+1;
 }
+//find mst with prims algo
+void MST_Algos::prim(){
+    bool solved;
+    bool mstExists;
+    bool visited[nodes];
+
+    int minCostSum;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
