@@ -24,6 +24,7 @@ private:
     vector<vector<Edge>> graph;
 public:
     Graph();
+    Graph(int);
     void AddEdge(int, int, int);
 };
 

@@ -7,6 +7,11 @@
 Graph::Graph(){
 
 }
-void Graph::AddEdge(int from, int to, int cost){
+Graph::Graph(int e){
+    for(int x=0;x<=e;x++){
+        graph.push_back(vector<Edge>());
+    }
+}
+void Graph::AddEdge(int from, int to, int weight){
 
 }
