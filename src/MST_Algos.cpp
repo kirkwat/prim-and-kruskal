@@ -1,11 +1,9 @@
-//
-// Created by watso on 4/24/2021.
-//
-
+//Kirk Watson - 47876885 - CS3353
 #include "MST_Algos.h"
 //default constructor
 MST_Algos::MST_Algos(){}
 //read file to fill graph
+//arguments - graph data file path
 void MST_Algos::readGraph(const char* filePath){
     ifstream file;
     //open file
@@ -57,119 +55,72 @@ void MST_Algos::readGraph(const char* filePath){
 }
 //find mst with prims algo
 void MST_Algos::prim(){
-    bool solved;
-    bool mstExists;
-    IndexedPriorityQueue ipq;
-
-    int minCostSum;
-    int m=nodes-1;
-    int edgeCount=0;
+    //array marking if vertex has been visited
     bool visited[nodes];
-    Edge mstEdges[m];
-
-    int degree=ceil(log(nodes)/log(2));
-    ipq=IndexedPriorityQueue(max(2, degree),nodes);
-
-
-
-
-
-
-
-
-
-
-
-
-    visited[0] = true;
-
-    // edges will never be null if the createEmptyGraph method was used to build the graph.
-    vector<Edge> edges = graph.at(0);
-
-    for (Edge edge : edges) {
-        int destNodeIndex = edge.getTo();
-
-        // Skip edges pointing to already visited nodes.
-        if (visited[destNodeIndex]) continue;
-
-        if (ipq.contains(destNodeIndex)) {
-            // Try and improve the cheapest edge at destNodeIndex with the current edge in the IPQ.
-            ipq.decrease(destNodeIndex, edge);
-        } else {
-            // Insert edge for the first time.
-            ipq.insert(destNodeIndex, edge);
-        }
+    for(int x=0;x<nodes;x++){
+        visited[x]=false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    int m=nodes-1;      //num of connections between vertices
+    int edgeCount=0;    //num of current edges found
+    int minCostSum=0;   //mst cost
+    Edge mstEdges[m];   //edges used in mst
+    //create ipq
+    //degree of d-ary heap, for performance with dense and populated graphs
+    int degree=ceil(log(nodes)/log(2));
+    IndexedPriorityQueue ipq=IndexedPriorityQueue(max(2, degree),nodes);
+    //start algo at index 0
+    visited[0] = true;
+    //get edges at index 0
+    vector<Edge> edges = graph.at(0);
+    //iterate through each edge
+    for (Edge edge : edges) {
+        //add edges to priority queue
+        ipq.insert(edge.getTo(), edge);
+    }
+    //loop until priority queue is empty and current edges equals num of connections
     while (!ipq.isEmpty() && edgeCount != m) {
-        int destNodeIndex = ipq.peekMinKeyIndex(); // equivalently: edge.to
-        Edge edge = ipq.pollMinValue();
-
-        mstEdges[edgeCount++] = edge;
-        minCostSum += edge.getCost();
-
-
-
+        //get destination vertex for min in priority queue
+        int destNodeIndex = ipq.peekMinKey();
+        //get edge and add cost to mst cost
+        Edge edge = ipq.pollMinVal();
+        mstEdges[edgeCount++] = edge;   //TODO delete mst edges
+        minCostSum += edge.getWeight();
+        //mark vertex as visited
         visited[destNodeIndex] = true;
-
-        // edges will never be null if the createEmptyGraph method was used to build the graph.
+        //get edges connected to destination vertex
         vector<Edge> edges = graph.at(destNodeIndex);
-
-        for (Edge edge : edges) {
+        //iterate through edges
+        for(Edge edge : edges){
+            //get edge destination
             int destNodeIndex = edge.getTo();
-
-            // Skip edges pointing to already visited nodes.
-            if (visited[destNodeIndex]) continue;
-
-            if (ipq.contains(destNodeIndex)) {
-                // Try and improve the cheapest edge at destNodeIndex with the current edge in the IPQ.
+            //check if destination vertex has already been visited
+            if(visited[destNodeIndex]){
+                continue;
+            }
+            //check if destination vertex is in priority queue
+            if(ipq.contains(destNodeIndex)){
+                //replace edge with lowest weight if possible
                 ipq.decrease(destNodeIndex, edge);
-            } else {
-                // Insert edge for the first time.
+            }
+            else{
+                //add new edge to priority queue
                 ipq.insert(destNodeIndex, edge);
             }
         }
     }
-
-    // Verify MST spans entire graph.
-    mstExists = (edgeCount == m);
-
-
-
-
-
-
-
-
-    cout<<"MST cost: "<<minCostSum<<endl;
-
-
-
-
-
+    //show mst cost
+    cout<<"Prim's MST cost: "<<minCostSum<<endl;
+    //show mst edges
+    cout<<"Prim's MST edges: "<<endl;
+    for (Edge edge : mstEdges) {
+        printf("\t(%d, %d, %d)\n", edge.getFrom(), edge.getTo(), edge.getWeight());
+    }
 }
-//TODO add getMSt, getMstCost, mstExists
-
-
-
-
-
+//test graph
 void MST_Algos::testGraph() {
-    graph=Graph(7);
-
+    nodes=7;
+    graph=Graph(nodes);
+    //add edges
     graph.AddEdge(0,1,9);
     graph.AddEdge(0,2,0);
     graph.AddEdge(0,3,5);
@@ -182,31 +133,6 @@ void MST_Algos::testGraph() {
     graph.AddEdge(3,6,3);
     graph.AddEdge(4,6,6);
     graph.AddEdge(5,6,1);
-
+    //print graph
     graph.print();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

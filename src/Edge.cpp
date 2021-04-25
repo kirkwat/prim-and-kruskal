@@ -1,31 +1,31 @@
-//
-// Created by watso on 4/25/2021.
-//
-
+//Kirk Watson - 47876885 - CS3353
 #include "Edge.h"
-
-Edge::Edge() {
-
-}
-Edge::Edge(int t, int f,  int c){
+//default constructor
+Edge::Edge() {}
+//overloaded constructor with edge values
+//arguments - to, from, weight
+Edge::Edge(int t, int f,  int w){
     to=t;
     from=f;
-    cost=c;
+    weight=w;
 }
-//greater than operator with string
+//greater than operator with cost
 bool Edge::operator> (const Edge& copy)const{
-    return cost>copy.cost;
+    return weight>copy.weight;
 }
-//less than operator with string
+//less than operator with cost
 bool Edge::operator< (const Edge& copy)const{
-    return cost<copy.cost;
+    return weight<copy.weight;
 }
-int Edge::getCost(){
-    return cost;
+//return cost value
+int Edge::getWeight(){
+    return weight;
 }
+//return to value
 int Edge::getTo(){
     return to;
 }
+//return from value
 int Edge::getFrom(){
     return from;
 }

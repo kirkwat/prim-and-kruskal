@@ -1,7 +1,4 @@
-//
-// Created by watso on 4/25/2021.
-//
-
+//Kirk Watson - 47876885 - CS3353
 #ifndef S21_PA04_KWATSON_INDEXEDPRIORITYQUEUE_H
 #define S21_PA04_KWATSON_INDEXEDPRIORITYQUEUE_H
 
@@ -10,34 +7,34 @@
 
 using namespace std;
 
+//This class implements an indexed priority queue using a minimum indexed d-ary heap.
+//credit to https://www.youtube.com/user/purpongie for references
 class IndexedPriorityQueue {
 private:
-    int sz;
-    int n;
-    int d;
-    int* child;
-    int* parent;
-    int* pm;
-    int* im;
-    Edge* values;
+    int currSize;           //current num of elements in heap
+    int capacity;           //max num of elements in heap
+    int degree;             //degree of nodes in heap
+    int* child;             //loop up arrays to track child indexes of each node
+    int* parent;            //loop up arrays to track parent indexes of each node
+    int* priorityMap;       //position map for values
+    int* inverseMap;        //inverse map for values, used for minimum index
+    Edge* values;           //holds edge values for each key
 
 public:
     IndexedPriorityQueue();
     IndexedPriorityQueue(int,int);
     bool isEmpty();
     bool contains(int);
-    int peekMinKeyIndex();
-    Edge peekMinValue();
-    Edge pollMinValue();
+    int peekMinKey();
+    Edge peekMinVal();
+    Edge pollMinVal();
     void insert(int, Edge);
-    Edge deleteEdge(int);
+    Edge deleteVal(int);
     void decrease(int,Edge);
     void sink(int);
     void swim(int);
     int minChild(int);
     void swap(int, int);
-    bool less(int, int);
-    bool less(Edge, Edge);
 };
 
 

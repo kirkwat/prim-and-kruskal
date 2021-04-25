@@ -1,5 +1,4 @@
-#include <iostream>
-#include <fstream>
+//Kirk Watson - 47876885 - CS3353
 #include "MST_Algos.h"
 
 using namespace std;
@@ -16,8 +15,20 @@ int main(int argc, char** argv){
     mst_finder.prim();
 
 
+
+
+
+
+
+
+
     return 0;
 }
+//to do
+    //kruskals
+    //union find
+    //essay
+
 
 //how can i be faster
 //reading file
