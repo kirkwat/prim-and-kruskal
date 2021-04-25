@@ -8,8 +8,12 @@ int main(int argc, char** argv){
     //create launcher
     MST_Algos mst_finder=MST_Algos();
     //read file
-    string file="../test_graph.dat";
-    mst_finder.readGraph(file.c_str());
+    //string file="../test_graph.dat";
+    //mst_finder.readGraph(file.c_str());
+    //test graph
+    mst_finder.testGraph();
+    //prims algo
+    mst_finder.prim();
 
 
     return 0;

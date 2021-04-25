@@ -9,7 +9,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 #include "Graph.h"
+#include "IndexedPriorityQueue.h"
+#include "Edge.h"
 
 using namespace std;
 
@@ -21,6 +24,7 @@ public:
     MST_Algos();
     void readGraph(const char*);
     void prim();
+    void testGraph();
 };
 
 

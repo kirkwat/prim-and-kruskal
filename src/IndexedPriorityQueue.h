@@ -6,6 +6,7 @@
 #define S21_PA04_KWATSON_INDEXEDPRIORITYQUEUE_H
 
 #include <algorithm>
+#include "Edge.h"
 
 using namespace std;
 
@@ -18,17 +19,25 @@ private:
     int* parent;
     int* pm;
     int* im;
-    //TODO fix
-    //Object[] values;
+    Edge* values;
 
 public:
+    IndexedPriorityQueue();
     IndexedPriorityQueue(int,int);
-    int getSize();
     bool isEmpty();
     bool contains(int);
     int peekMinKeyIndex();
-    pollMinKeyIndex();
-    E
+    Edge peekMinValue();
+    Edge pollMinValue();
+    void insert(int, Edge);
+    Edge deleteEdge(int);
+    void decrease(int,Edge);
+    void sink(int);
+    void swim(int);
+    int minChild(int);
+    void swap(int, int);
+    bool less(int, int);
+    bool less(Edge, Edge);
 };
 
 
