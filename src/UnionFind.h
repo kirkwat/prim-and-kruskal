@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//This class holds the Union Find data structure.
+//This class holds the Union Find data structure
 class UnionFind {
 private:
     int* unionSize;         //tracks size of each union

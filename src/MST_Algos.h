@@ -22,9 +22,9 @@ using namespace std;
 //credit to https://www.youtube.com/user/purpongie for references
 class MST_Algos {
 private:
-    Graph graph;                                                //graph read from file
+    Graph graph;                                            //graph read from file
     priority_queue<Edge, vector<Edge>, greater<>> pq;       //priority queue using min heap used for kruskals algo, filled while reading algo
-    int nodes;                                                  //number of nodes in graph
+    int nodes;                                              //number of nodes in graph
 
 public:
     MST_Algos();

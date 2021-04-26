@@ -24,7 +24,7 @@ To use this program, the user will need to provide a display flag and a formatte
     * Takes edges separated by each line with edge values separated by a space
     * Edge values are integers and are written in this order
       * *To*   *From*  *Weight*
-    * Value for the first vertex must be 0 
+    * Value of the first vertex must be 0 
   * Example:  
     0 1 9  
     0 2 0  
@@ -41,4 +41,11 @@ To use this program, the user will need to provide a display flag and a formatte
     
 ## Analysis
 Compare and contrast the performance of Prim’s and Kruskal’s algorithm for generating the minimum spanning trees as the size and density of the input graph increases.
+![image info](./artifacts/project4_data.PNG)
 
+To obtain the performance data of both algorithms, they were tested with 4 various sizes of 100, 1000, 10000, and 100000.
+Among those sizes, there were also 3 different densities, the lowest, median, and most amount of edges possible.
+With this data, we are able to see that the Eager Prim's algorithm outperformed Kruskal's algorithm as the number of vertices increases.
+For lower vertice graphs, Kruskal's algorithm is able to outperform Prim's algorithm as the number of edges becomes more dense.
+For the Prim's algorithm, we are able to see that as the graph becomes more dense, its performance decreases at a higher rate than Kruskal's algorithm.
+These observations prove Prim's time complexity of O(E*log(V)) as well as Kruskal's time complexity of O(Elog(E)) where E is the number of edges and V is the number of vertices.
