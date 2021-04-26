@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cmath>
 #include <queue>
+#include <vector>
 #include "Graph.h"
 #include "Edge.h"
 #include "IndexedPriorityQueue.h"
@@ -28,7 +29,7 @@ private:
 public:
     MST_Algos();
 
-    bool readGraph(const char*);
+    bool readGraph(string);
     void prim();
     void kruskal();
 };

@@ -1,20 +1,20 @@
 //Kirk Watson - 47876885 - CS3353
 #include "MST_Algos.h"
 #include <cstring>
-#include "time.h"
+#include <ctime>
 
 using namespace std;
-//C:\\Users\\watso\\Documents\\Visual_Studio_Code\\Networkx_Graph_Generation\\test_graph.dat //TODO delete
+
 int main(int argc, char** argv){
-    string file="../test_graph.dat";   //TODO delete
     //create mst solver
     MST_Algos mst_solver=MST_Algos();
     //read file
-    if(mst_solver.readGraph(file.c_str())) {
+    if(mst_solver.readGraph(argv[2])) {
         //brief output option with mst cost and edges
         if(strcmp(argv[1],"-b") == 0){
             //run prim's algo to find mst
             mst_solver.prim();
+            cout<<endl;
             //run kruskal's algo to find mst
             mst_solver.kruskal();
         }
@@ -37,13 +37,3 @@ int main(int argc, char** argv){
     }
     return 0;
 }
-//to do
-    //fix absolute path right before turning in
-    //readme basics
-    //analysis
-    //prepare for turn in and competition
-
-
-//to add
-    //absolute path
-    //error handling

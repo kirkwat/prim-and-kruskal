@@ -6,7 +6,7 @@ MST_Algos::MST_Algos(){
 }
 //read file to fill graph, returns true if file was successfully read
 //arguments - graph data file path
-bool MST_Algos::readGraph(const char* filePath){
+bool MST_Algos::readGraph(string filePath){
     ifstream file;
     //open file
     file.open(filePath);
@@ -15,46 +15,36 @@ bool MST_Algos::readGraph(const char* filePath){
         cout << "Could not open file "<<filePath<<"." << endl;
         return false;
     }
-    //get number of lines
-    int numLines=0;
-    string line;
-    while(getline(file, line)){
-        numLines++;
-    }
-    //create array based on size
-    int values[3*numLines];
-    //go to beginning of file
-    file.clear();
-    file.seekg(0);
-    //get values
-    int num;
-    file>>num;
-    values[0]=num;
-    //max vertex used to find graph dimension
-    int max=num;
-    //read values and find max vertex
-    for(int x=1;x<(3*numLines);x++){
-        file>>num;
-        values[x]=num;
-        //skip edge values
-        if(((x+1)%3)!=0){
-            //check for max
-            if(num>max){
-                max=num;
+    //initialize values
+    int num=0;
+    int counter=0;
+    vector<int> values;
+    int max=0;
+    string line="";
+    //loop until end of file
+    while(file>>num) {
+        values.emplace_back(num);
+        //skip weight
+        if(((counter+1)%3)!=0) {
+            //check for max vertex
+            if (num > max) {
+                max = num;
             }
         }
+        counter++;
     }
     //close file
     file.close();
     //initialize graph with range
     graph=Graph(max);
     //fill graph and priority queue
-    for(int x=0;x<numLines;x++){
+    for(int x=0;x<((counter+1)/3);x++){
         int index=3*x;
         graph.AddEdge(values[index],values[index+1],values[index+2]);
         pq.push(Edge(values[index],values[index+1],values[index+2]));
     }
     nodes=max+1;
+    //return true because the file was able to be read
     return true;
 }
 //find mst with prims algo
@@ -66,7 +56,7 @@ void MST_Algos::prim(){
     }
     int connections=nodes-1;        //num of connections between vertices
     int mstCount=0;                 //num of current edges found
-    int mstCost=0;                  //mst cost
+    long mstCost=0;                  //mst cost
     //create ipq
     //degree of d-ary heap, for performance with dense and populated graphs
     int degree=ceil(log(nodes)/log(2));
@@ -113,12 +103,12 @@ void MST_Algos::prim(){
     }
     //display mst cost
     cout<<"MST sum of edge weights with Prim's algo:\t\t"<<mstCost<<endl;
-    cout<<"MST cout of edges with Prim's algo:\t\t\t\t"<<mstCount<<endl;
+    cout<<"MST count of edges with Prim's algo:\t\t\t"<<mstCount<<endl;
 }
 //find mst with kruskals algo
 void MST_Algos::kruskal() {
     int mstCount=0;     //num of current edges found
-    int mstCost=0;      //mst cost
+    long mstCost=0;      //mst cost
     //create union find object
     UnionFind uf = UnionFind(nodes);
     //loop until priority queue is empty
@@ -142,6 +132,6 @@ void MST_Algos::kruskal() {
     //verify algo mst tree is full
     if(uf.size(0) == nodes){
         cout<<"MST sum of edge weights with Kruskal's algo:\t"<<mstCost<<endl;
-        cout<<"MST cout of edges with Kruskal's algo:\t\t\t"<<mstCount<<endl;
+        cout<<"MST count of edges with Kruskal's algo:\t\t\t"<<mstCount<<endl;
     }
 }

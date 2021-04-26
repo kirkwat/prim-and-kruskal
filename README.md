@@ -37,5 +37,8 @@ To use this program, the user will need to provide a display flag and a formatte
     3 5 2  
     3 6 3  
     4 6 6  
-    5 6 1  
+    5 6 1
+    
 ## Analysis
+Compare and contrast the performance of Prim’s and Kruskal’s algorithm for generating the minimum spanning trees as the size and density of the input graph increases.
+
