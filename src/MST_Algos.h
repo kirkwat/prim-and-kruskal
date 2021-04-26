@@ -28,10 +28,9 @@ private:
 public:
     MST_Algos();
 
-    void readGraph(const char*);
+    bool readGraph(const char*);
     void prim();
     void kruskal();
-    void testGraph();
 };
 
 

@@ -3,7 +3,6 @@
 #define S21_PA04_KWATSON_GRAPH_H
 
 #include <vector>
-#include <iostream>//TODO delete
 #include "Edge.h"
 
 using namespace std;
@@ -18,7 +17,6 @@ public:
 
     void AddEdge(int, int, int);
     vector<Edge> at(int);
-    void print();//TODO delete
 };
 
 

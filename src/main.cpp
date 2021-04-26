@@ -7,13 +7,12 @@ int main(int argc, char** argv){
     //create launcher
     MST_Algos mst_finder=MST_Algos();
     //read file
-    //string file="../test_graph.dat";
-    //mst_finder.readGraph(file.c_str());
-    //test graph
-    mst_finder.testGraph();
-    //prims algo
-    mst_finder.prim();
-    mst_finder.kruskal();
+    string file="../test_graph.dat";   //TODO delete
+    if(mst_finder.readGraph(file.c_str())) {
+        mst_finder.prim();
+        mst_finder.kruskal();
+    }
+    mst_finder.readGraph(file.c_str());
 
 
 
@@ -25,9 +24,11 @@ int main(int argc, char** argv){
     return 0;
 }
 //to do
-    //kruskals
-    //union find
-    //fix file reader
+    //fix input
+        //2 command arguments
+            //flag for brief and and full output
+            //absolute file
+    //fix output
     //essay
     //prepare for turn in and competition
 

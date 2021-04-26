@@ -4,16 +4,16 @@
 MST_Algos::MST_Algos(){
     int nodes=0;
 }
-//read file to fill graph
+//read file to fill graph, returns true if file was successfully read
 //arguments - graph data file path
-void MST_Algos::readGraph(const char* filePath){
+bool MST_Algos::readGraph(const char* filePath){
     ifstream file;
     //open file
     file.open(filePath);
     //check if it was opened properly
     if (!file.is_open()) {
         cout << "Could not open file "<<filePath<<"." << endl;
-        return;
+        return false;
     }
     //get number of lines
     int numLines=0;
@@ -27,7 +27,7 @@ void MST_Algos::readGraph(const char* filePath){
     file.clear();
     file.seekg(0);
     //get values
-    int num;        //TODO check this
+    int num;
     file>>num;
     values[0]=num;
     //max vertex used to find graph dimension
@@ -48,14 +48,14 @@ void MST_Algos::readGraph(const char* filePath){
     file.close();
     //initialize graph with range
     graph=Graph(max);
-    //fill graph
+    //fill graph and priority queue
     for(int x=0;x<numLines;x++){
-        int index=3*numLines;
-        graph.AddEdge(index,index+1,index+2);
-        //pq.push(index+1,Edge(index,index+1,index+2)); TODO fix
+        int index=3*x;
+        graph.AddEdge(values[index],values[index+1],values[index+2]);
+        pq.push(Edge(values[index],values[index+1],values[index+2]));
     }
-    //TODO change maybe for min constraint
     nodes=max+1;
+    return true;
 }
 //find mst with prims algo
 void MST_Algos::prim(){
@@ -67,7 +67,6 @@ void MST_Algos::prim(){
     int connections=nodes-1;        //num of connections between vertices
     int mstCount=0;                 //num of current edges found
     int mstCost=0;                  //mst cost
-    Edge mstEdges[connections];     //edges used in mst  //TODO delete
     //create ipq
     //degree of d-ary heap, for performance with dense and populated graphs
     int degree=ceil(log(nodes)/log(2));
@@ -87,7 +86,6 @@ void MST_Algos::prim(){
         int destVertex = ipq.peekMinKey();
         //get edge and add cost to mst cost
         Edge edge = ipq.pollMinVal();
-        mstEdges[mstCount++] = edge;
         mstCost += edge.getWeight();
         //mark vertex as visited
         visited[destVertex] = true;
@@ -112,19 +110,12 @@ void MST_Algos::prim(){
             }
         }
     }
-    //show mst cost
-    cout<<"Prim's MST cost: "<<mstCost<<endl;
-    //show mst edges
-    cout<<"Prim's MST edges: "<<endl;
-    for (Edge edge : mstEdges) {
-        printf("\t(%d, %d, %d)\n", edge.getFrom(), edge.getTo(), edge.getWeight());
-    }
+    //display mst cost
+    cout<<"MST cost with Prim's algo:\t\t"<<mstCost<<endl;
 }
 //find mst with kruskals algo
 void MST_Algos::kruskal() {
-    int mstCost=0;              //mst cost
-    int mstCount=0;             //num of current edges found
-    Edge mstEdges[nodes - 1];   //edges used in mst   //TODO delete
+    int mstCost=0;
     //create union find object
     UnionFind uf = UnionFind(nodes);
     //loop until priority queue is empty
@@ -139,51 +130,13 @@ void MST_Algos::kruskal() {
         //add edge to union and mst
         uf.unify(edge.getFrom(), edge.getTo());
         mstCost += edge.getWeight();
-        mstEdges[mstCount++] = edge;
         //end loop if mst with all nodes has been found
         if (uf.size(0) == nodes){
             break;
         }
     }
+    //verify algo mst tree is full
     if(uf.size(0) == nodes){
-        cout<<"kruskal's mst cost: "<<mstCost<<endl;
-        cout<<"kruskal's MST edges: "<<endl;
-        for (Edge edge : mstEdges) {
-            printf("\t(%d, %d, %d)\n", edge.getFrom(), edge.getTo(), edge.getWeight());
-        }
+        cout<<"MST cost with Kruskal's algo:\t"<<mstCost<<endl;
     }
-}
-//test graph
-void MST_Algos::testGraph() {
-    nodes=7;
-    graph=Graph(nodes);
-    //add edges
-    graph.AddEdge(0,1,9);
-    graph.AddEdge(0,2,0);
-    graph.AddEdge(0,3,5);
-    graph.AddEdge(0,5,7);
-    graph.AddEdge(1,3,-2);
-    graph.AddEdge(1,4,3);
-    graph.AddEdge(1,6,4);
-    graph.AddEdge(2,5,6);
-    graph.AddEdge(3,5,2);
-    graph.AddEdge(3,6,3);
-    graph.AddEdge(4,6,6);
-    graph.AddEdge(5,6,1);
-
-    pq.push(Edge(0,1,9));
-    pq.push(Edge(0,2,0));
-    pq.push(Edge(0,3,5));
-    pq.push(Edge(0,5,7));
-    pq.push(Edge(1,3,-2));
-    pq.push(Edge(1,4,3));
-    pq.push(Edge(1,6,4));
-    pq.push(Edge(2,5,6));
-    pq.push(Edge(3,5,2));
-    pq.push(Edge(3,6,3));
-    pq.push(Edge(4,6,6));
-    pq.push(Edge(5,6,1));
-
-    //print graph
-    graph.print();
 }
