@@ -2,7 +2,7 @@
 #include "MST_Algos.h"
 //default constructor
 MST_Algos::MST_Algos(){
-    int nodes=0;
+    nodes=0;
 }
 //read file to fill graph, returns true if file was successfully read
 //arguments - graph data file path
@@ -87,6 +87,7 @@ void MST_Algos::prim(){
         //get edge and add cost to mst cost
         Edge edge = ipq.pollMinVal();
         mstCost += edge.getWeight();
+        ++mstCount;
         //mark vertex as visited
         visited[destVertex] = true;
         //get edges connected to destination vertex
@@ -111,11 +112,13 @@ void MST_Algos::prim(){
         }
     }
     //display mst cost
-    cout<<"MST cost with Prim's algo:\t\t"<<mstCost<<endl;
+    cout<<"MST sum of edge weights with Prim's algo:\t\t"<<mstCost<<endl;
+    cout<<"MST cout of edges with Prim's algo:\t\t\t\t"<<mstCount<<endl;
 }
 //find mst with kruskals algo
 void MST_Algos::kruskal() {
-    int mstCost=0;
+    int mstCount=0;     //num of current edges found
+    int mstCost=0;      //mst cost
     //create union find object
     UnionFind uf = UnionFind(nodes);
     //loop until priority queue is empty
@@ -130,6 +133,7 @@ void MST_Algos::kruskal() {
         //add edge to union and mst
         uf.unify(edge.getFrom(), edge.getTo());
         mstCost += edge.getWeight();
+        ++mstCount;
         //end loop if mst with all nodes has been found
         if (uf.size(0) == nodes){
             break;
@@ -137,6 +141,7 @@ void MST_Algos::kruskal() {
     }
     //verify algo mst tree is full
     if(uf.size(0) == nodes){
-        cout<<"MST cost with Kruskal's algo:\t"<<mstCost<<endl;
+        cout<<"MST sum of edge weights with Kruskal's algo:\t"<<mstCost<<endl;
+        cout<<"MST cout of edges with Kruskal's algo:\t\t\t"<<mstCount<<endl;
     }
 }

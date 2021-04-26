@@ -8,7 +8,7 @@ Graph::Graph(){
 Graph::Graph(int v){
     //add a vector for every vertex
     for(int x=0;x<=v;x++){
-        graph.push_back(vector<Edge>());
+        graph.emplace_back(vector<Edge>());
     }
 }
 //add undirected edge
