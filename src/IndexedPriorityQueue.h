@@ -8,7 +8,6 @@
 using namespace std;
 
 //This class implements an indexed priority queue using a minimum indexed d-ary heap.
-//credit to https://www.youtube.com/user/purpongie for references
 class IndexedPriorityQueue {
 private:
     int currSize;           //current num of elements in heap

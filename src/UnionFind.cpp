@@ -1,50 +1,65 @@
-//
-// Created by watso on 4/25/2021.
-//
-
+//Kirk Watson - 47876885 - CS3353
 #include "UnionFind.h"
 //default constructor
 UnionFind::UnionFind(){
-    sz=nullptr;
-    id=nullptr;
+    unionSize=nullptr;
+    connections=nullptr;
 }
 //overloaded constructor
-//arguments TODO
-UnionFind::UnionFind(int n){
-    id = new int[n];
-    sz = new int[n];
-    for (int i = 0; i < n; i++) {
-        id[i] = i;
-        sz[i] = 1;
+//arguments - number of nodes
+UnionFind::UnionFind(int num){
+    unionSize = new int[num];
+    connections = new int[num];
+    //initialize connections and union size
+    for (int x = 0; x < num; x++) {
+        //node is connected to itself
+        connections[x] = x;
+        unionSize[x] = 1;
     }
 }
-
-int UnionFind::find(int p){
-    int root = p;
-    while (root != id[root]) root = id[root];
-    // Path compression
-    while (p != root) {
-        int next = id[p];
-        id[p] = root;
-        p = next;
+//finds connection for requested node
+//arguments - requested node
+int UnionFind::find(int node){
+    int root = node;
+    //find root of union
+    while (root != connections[root]){
+        root = connections[root];
+    }
+    //compress paths in union for constant time complexity
+    while (node != root) {
+        int next = connections[node];
+        connections[node] = root;
+        node = next;
     }
     return root;
 }
-bool UnionFind::connected(int p, int q){
-    return find(p) == find(q);
+//returns true if nodes are in the same union
+//arguments - first node, second node
+bool UnionFind::connected(int node1, int node2){
+    return find(node1) == find(node2);
 }
-int UnionFind::size(int p){
-    return sz[find(p)];
+//returns size of union for given node
+//arguments - requested node
+int UnionFind::size(int node){
+    return unionSize[find(node)];
 }
-void UnionFind::unify(int p, int q){
-    int root1 = find(p);
-    int root2 = find(q);
-    if (root1 == root2) return;
-    if (sz[root1] < sz[root2]) {
-        sz[root2] += sz[root1];
-        id[root1] = root2;
-    } else {
-        sz[root1] += sz[root2];
-        id[root2] = root1;
+//connect nodes to same union
+//arguments - first node, second node
+void UnionFind::unify(int node1, int node2){
+    //get roots of nodes
+    int root1 = find(node1);
+    int root2 = find(node2);
+    //return if nodes are in same union
+    if (root1 == root2){
+        return;
+    }
+    //merge smaller group into larger group
+    if (unionSize[root1] < unionSize[root2]) {
+        unionSize[root2] += unionSize[root1];
+        connections[root1] = root2;
+    }
+    else {
+        unionSize[root1] += unionSize[root2];
+        connections[root2] = root1;
     }
 }

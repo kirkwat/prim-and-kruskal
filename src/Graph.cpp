@@ -33,5 +33,5 @@ void Graph::print(){//TODO delete
         }
         cout<<endl;
     }
-    cout<<"total edges: "<<counter<<endl;
+    cout<<"total edges: "<<counter<<endl<<endl;
 }

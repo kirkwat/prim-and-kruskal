@@ -1,7 +1,4 @@
-//
-// Created by watso on 4/25/2021.
-//
-
+//Kirk Watson - 47876885 - CS3353
 #ifndef S21_PA04_KWATSON_UNIONFIND_H
 #define S21_PA04_KWATSON_UNIONFIND_H
 
@@ -9,8 +6,8 @@ using namespace std;
 
 class UnionFind {
 private:
-    int* sz;
-    int* id;
+    int* unionSize;         //tracks size of each union
+    int* connections;       //tracks connections for each node
 
 public:
     UnionFind();
