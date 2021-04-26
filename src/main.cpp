@@ -12,8 +12,8 @@ int main(int argc, char** argv){
     //test graph
     mst_finder.testGraph();
     //prims algo
-    mst_finder.prim();
-
+    //mst_finder.prim();
+    mst_finder.kruskal();
 
 
 
@@ -28,6 +28,7 @@ int main(int argc, char** argv){
     //kruskals
     //union find
     //essay
+    //prepare for turn in and competition
 
 
 //how can i be faster

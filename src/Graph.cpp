@@ -1,7 +1,8 @@
 //Kirk Watson - 47876885 - CS3353
 #include "Graph.h"
 //default constructor
-Graph::Graph(){}
+Graph::Graph(){
+}
 //overloaded constructor with number of vertices
 //arguments - number of vertices
 Graph::Graph(int v){

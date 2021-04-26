@@ -7,10 +7,10 @@ using namespace std;
 //This class contains the characteristics of a directed edge in a graph.
 class Edge{
 private:
-
     int to;         //start vertex of edge
     int from;       //destination vertex of edge
     int weight;     //cost of edge
+
 public:
     Edge();
     Edge(int, int,  int);

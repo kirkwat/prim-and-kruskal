@@ -20,9 +20,15 @@ private:
     int* inverseMap;        //inverse map for values, used for minimum index
     Edge* values;           //holds edge values for each key
 
+    void sink(int);
+    void swim(int);
+    int minChild(int);
+    void swap(int, int);
+
 public:
     IndexedPriorityQueue();
     IndexedPriorityQueue(int,int);
+
     bool isEmpty();
     bool contains(int);
     int peekMinKey();
@@ -31,10 +37,6 @@ public:
     void insert(int, Edge);
     Edge deleteVal(int);
     void decrease(int,Edge);
-    void sink(int);
-    void swim(int);
-    int minChild(int);
-    void swap(int, int);
 };
 
 

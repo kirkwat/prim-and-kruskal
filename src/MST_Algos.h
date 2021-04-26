@@ -6,10 +6,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <math.h>
+#include <cmath>
+#include <queue>
 #include "Graph.h"
-#include "IndexedPriorityQueue.h"
 #include "Edge.h"
+#include "IndexedPriorityQueue.h"
+#include "UnionFind.h"
 
 using namespace std;
 
@@ -18,13 +20,16 @@ using namespace std;
 //The second algorith is Kruskal's algorithm using a union-find data structure.
 class MST_Algos {
 private:
-    Graph graph;    //graph read from file
-    int nodes;      //number of nodes in graph
+    Graph graph;                //graph read from file
+    priority_queue<Edge> pq;    //priority queue used for kruskals algo, filled while reading algo
+    int nodes;                  //number of nodes in graph
 
 public:
     MST_Algos();
+
     void readGraph(const char*);
     void prim();
+    void kruskal();
     void testGraph();
 };
 

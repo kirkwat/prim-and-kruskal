@@ -1,7 +1,16 @@
 //Kirk Watson - 47876885 - CS3353
 #include "IndexedPriorityQueue.h"
 //default constructor
-IndexedPriorityQueue::IndexedPriorityQueue(){}
+IndexedPriorityQueue::IndexedPriorityQueue(){
+    currSize=0;
+    capacity=0;
+    degree=0;
+    child=nullptr;
+    parent=nullptr;
+    priorityMap=nullptr;
+    inverseMap=nullptr;
+    values=nullptr;
+}
 //overloaded constructor with degree and capacity
 //arguments - degree, max size
 IndexedPriorityQueue::IndexedPriorityQueue(int d, int m){

@@ -1,7 +1,9 @@
 //Kirk Watson - 47876885 - CS3353
 #include "MST_Algos.h"
 //default constructor
-MST_Algos::MST_Algos(){}
+MST_Algos::MST_Algos(){
+    int nodes=0;
+}
 //read file to fill graph
 //arguments - graph data file path
 void MST_Algos::readGraph(const char* filePath){
@@ -25,7 +27,8 @@ void MST_Algos::readGraph(const char* filePath){
     file.clear();
     file.seekg(0);
     //get values
-    int num;
+    int num;        //TODO check this
+    file>>num;
     values[0]=num;
     //max vertex used to find graph dimension
     int max=num;
@@ -49,6 +52,7 @@ void MST_Algos::readGraph(const char* filePath){
     for(int x=0;x<numLines;x++){
         int index=3*numLines;
         graph.AddEdge(index,index+1,index+2);
+        pq.push(Edge(index,index+1,index+2));
     }
     //TODO change maybe for min constraint
     nodes=max+1;
@@ -60,10 +64,10 @@ void MST_Algos::prim(){
     for(int x=0;x<nodes;x++){
         visited[x]=false;
     }
-    int m=nodes-1;      //num of connections between vertices
-    int edgeCount=0;    //num of current edges found
-    int minCostSum=0;   //mst cost
-    Edge mstEdges[m];   //edges used in mst
+    int connections=nodes-1;      //num of connections between vertices
+    int mstCount=0;    //num of current edges found
+    int mstCost=0;   //mst cost
+    Edge mstEdges[connections];   //edges used in mst
     //create ipq
     //degree of d-ary heap, for performance with dense and populated graphs
     int degree=ceil(log(nodes)/log(2));
@@ -78,43 +82,115 @@ void MST_Algos::prim(){
         ipq.insert(edge.getTo(), edge);
     }
     //loop until priority queue is empty and current edges equals num of connections
-    while (!ipq.isEmpty() && edgeCount != m) {
+    while (!ipq.isEmpty() && mstCount != connections) {
         //get destination vertex for min in priority queue
-        int destNodeIndex = ipq.peekMinKey();
+        int destVertex = ipq.peekMinKey();
         //get edge and add cost to mst cost
         Edge edge = ipq.pollMinVal();
-        mstEdges[edgeCount++] = edge;   //TODO delete mst edges
-        minCostSum += edge.getWeight();
+        mstEdges[mstCount++] = edge;   //TODO delete mst edges
+        mstCost += edge.getWeight();
         //mark vertex as visited
-        visited[destNodeIndex] = true;
+        visited[destVertex] = true;
         //get edges connected to destination vertex
-        vector<Edge> edges = graph.at(destNodeIndex);
+        edges = graph.at(destVertex);
         //iterate through edges
-        for(Edge edge : edges){
+        for(Edge e : edges){
             //get edge destination
-            int destNodeIndex = edge.getTo();
+            destVertex = e.getTo();
             //check if destination vertex has already been visited
-            if(visited[destNodeIndex]){
+            if(visited[destVertex]){
                 continue;
             }
             //check if destination vertex is in priority queue
-            if(ipq.contains(destNodeIndex)){
+            if(ipq.contains(destVertex)){
                 //replace edge with lowest weight if possible
-                ipq.decrease(destNodeIndex, edge);
+                ipq.decrease(destVertex, e);
             }
             else{
                 //add new edge to priority queue
-                ipq.insert(destNodeIndex, edge);
+                ipq.insert(destVertex, e);
             }
         }
     }
     //show mst cost
-    cout<<"Prim's MST cost: "<<minCostSum<<endl;
+    cout<<"Prim's MST cost: "<<mstCost<<endl;
     //show mst edges
     cout<<"Prim's MST edges: "<<endl;
     for (Edge edge : mstEdges) {
         printf("\t(%d, %d, %d)\n", edge.getFrom(), edge.getTo(), edge.getWeight());
     }
+}
+//find mst with kruskals algo
+void MST_Algos::kruskal() {
+
+
+    int mstCost;
+
+    // Heapify operation in constructor transforms list of edges into a binary heap in O(n)
+    priority_queue<Edge> pq;
+    UnionFind uf = UnionFind(nodes);
+
+    int index = 0;
+    Edge mst[nodes - 1];
+
+    while (!pq.empty()) {
+        cout<<"loop"<<endl;
+        // Use heap to poll the next cheapest edge. Polling avoids the need to sort
+        // the edges before loop in the event that the algorithm terminates early.
+        Edge edge = pq.top();
+
+
+        // Skip this edge to avoid creating a cycle in MST.
+        if (uf.connected(edge.getFrom(), edge.getTo())) continue;
+
+        // Include this edge
+        uf.unify(edge.getFrom(), edge.getTo());
+        mstCost += edge.getWeight();
+        mst[index++] = edge;
+
+        // Stop early if we found a MST that includes all the nodes.
+        if (uf.size(0) == nodes) break;
+    }
+
+    if(uf.size(0) == nodes){
+        cout<<"YAY"<<endl;
+        cout<<"mst cost: "<<mstCost<<endl;
+    }
+    else{
+        cout<<"dang it"<<endl;
+    }
+
+    cout<<"mst cost: "<<mstCost<<endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 //test graph
 void MST_Algos::testGraph() {
@@ -133,6 +209,21 @@ void MST_Algos::testGraph() {
     graph.AddEdge(3,6,3);
     graph.AddEdge(4,6,6);
     graph.AddEdge(5,6,1);
+
+    pq.push(Edge(0,1,9));
+    pq.push(Edge(0,2,0));
+    pq.push(Edge(0,3,5));
+    pq.push(Edge(0,5,7));
+    pq.push(Edge(1,3,-2));
+    pq.push(Edge(1,4,3));
+    pq.push(Edge(1,6,4));
+    pq.push(Edge(2,5,6));
+    pq.push(Edge());
+    pq.push(Edge());
+    pq.push(Edge());
+    pq.push(Edge());
+
+
     //print graph
     graph.print();
 }

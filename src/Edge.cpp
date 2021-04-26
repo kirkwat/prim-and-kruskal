@@ -1,7 +1,11 @@
 //Kirk Watson - 47876885 - CS3353
 #include "Edge.h"
 //default constructor
-Edge::Edge() {}
+Edge::Edge() {
+    to=0;
+    from=0;
+    weight=0;
+}
 //overloaded constructor with edge values
 //arguments - to, from, weight
 Edge::Edge(int t, int f,  int w){

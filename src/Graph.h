@@ -11,10 +11,11 @@ using namespace std;
 //This class is the container of the graph. It holds all edges and maintains their connections.
 class Graph {
 private:
-    vector<vector<Edge>> graph;
+    vector<vector<Edge>> graph;     //store edges in undirected graph using an adjacency list with vectors
 public:
     Graph();
     Graph(int);
+
     void AddEdge(int, int, int);
     vector<Edge> at(int);
     void print();//TODO delete
