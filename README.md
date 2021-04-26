@@ -14,7 +14,7 @@ Once the MSTs are found, the number of edges in the MST, cost of the MST, and th
 ## How to Use
 To use this program, the user will need to provide a display flag and a formatted text file.
 
-### There are 5 command-line arguments:
+### There are 2 command-line arguments:
 * Display Flag
   * -b : Brief output, only displays MST number of edges and cost
   * -f : Full output, display brief output as well as algorithm running times  
