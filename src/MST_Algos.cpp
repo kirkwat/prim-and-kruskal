@@ -20,7 +20,7 @@ bool MST_Algos::readGraph(string filePath){
     int counter=0;
     vector<int> values;
     int max=0;
-    string line="";
+    string line;
     //loop until end of file
     while(file>>num) {
         values.emplace_back(num);

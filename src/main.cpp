@@ -31,8 +31,7 @@ int main(int argc, char** argv){
             mst_solver.kruskal();
             ending = clock();
             runTime = (double) (ending - beginning) / CLOCKS_PER_SEC;
-            cout<<"Running time with Kruskal's algo:\t\t\t\t"<<runTime<<"s"<<endl;
-
+            cout<<"Running time with Kruskal's algo:\t\t\t\t"<<runTime<<"s"<<endl
         }
     }
     return 0;

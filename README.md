@@ -43,7 +43,7 @@ To use this program, the user will need to provide a display flag and a formatte
 Compare and contrast the performance of Prim’s and Kruskal’s algorithm for generating the minimum spanning trees as the size and density of the input graph increases.
 
 
-![image info](./artifacts/project4_data.PNG)
+![image info](./artifacts/performance_chart.png)
 
 To obtain the performance data of both algorithms, they were tested with 4 various sizes of 100, 1000, 10000, and 100000.
 Among those sizes, there were also 3 different densities, the lowest, median, and most amount of edges possible.
