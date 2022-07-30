@@ -14,32 +14,37 @@ After reading the graph, the program finds a MST using Eager Prim's algorithm an
 Once the MSTs are found, the number of edges in the MST, cost of the MST, and the running time for each algorithm is displayed to the terminal.
 
 ## How to Use
-To use this program, the user will need to provide a display flag and a formatted text file.
+To use this program, compile and build with CMAKE.
+There are 2 command-line arguments. 
 
-### There are 2 command-line arguments:
-* Display Flag
+### Display Flag
   * `-b` : Brief output, only displays MST number of edges and cost
   * `-f` : Full output, display brief output as well as algorithm running times  
-* Absolute file path to the graph .dat/.txt file
-  * Formatting
-    * Must contain a connected, undirected, and weighted graph
-    * Takes edges separated by each line with edge values separated by a space
-    * Edge values are integers and are written in this order
-      * *To*   *From*  *Weight*
-    * Value of the first vertex must be 0 
-  * Example:  
-    0 1 9  
-    0 2 0  
-    0 3 5  
-    0 5 7  
-    1 3 -2  
-    1 4 3  
-    1 6 4  
-    2 5 6  
-    3 5 2  
-    3 6 3  
-    4 6 6  
-    5 6 1
+
+### Absolute file path to the graph .dat/.txt file
+* Formatting
+     * Must contain a connected, undirected, and weighted graph
+     * Takes edges separated by each line with edge values separated by a space
+     * Edge values are integers and are written in this order
+       * *To*   *From*  *Weight*
+     * Value of the first vertex must be 0 
+     * Example:  
+       0 1 9  
+       0 2 0  
+       0 3 5  
+       0 5 7  
+       1 3 -2  
+       1 4 3  
+       1 6 4  
+       2 5 6  
+       3 5 2  
+       3 6 3  
+       4 6 6  
+       5 6 1
+  
+Here is an example of the command-line arguments:
+
+`-f ../input/data.txt`
     
 ## Analysis
 Compare and contrast the performance of Prim’s and Kruskal’s algorithm for generating the minimum spanning trees as the size and density of the input graph increases.
